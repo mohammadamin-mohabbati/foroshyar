@@ -68,17 +68,16 @@ jobs:
           EOF
           echo "✅ کلید امضا بازگردانی شد ($(wc -c < android/keystore/froshyar-release.jks) بایت)"
 
-      - name: ساخت APK و AAB امضاشده
+      - name: ساخت APK امضاشده
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease bundleRelease --no-daemon
+          ./gradlew assembleRelease --no-daemon
 
-      - name: آماده‌سازی فایل‌های خروجی
+      - name: آماده‌سازی فایل خروجی
         run: |
           mkdir -p apk-out
           cp android/app/build/outputs/apk/release/app-release.apk "apk-out/Froshyar-${VERSION}.apk"
-          cp android/app/build/outputs/bundle/release/app-release.aab "apk-out/Froshyar-${VERSION}.aab" || true
           ls -la apk-out
 
       - name: انتشار در GitHub Releases
@@ -90,9 +89,7 @@ jobs:
             ## فروش‌یار v${{ env.VERSION }}
 
             - فایل **Froshyar-${{ env.VERSION }}.apk** — نصب مستقیم روی گوشی اندروید
-            - فایل **Froshyar-${{ env.VERSION }}.aab** — برای انتشار در کافه‌بازار و مایکت
             - امضاشده با کلید رسمی برنامه
-              `SHA-256: FFE55B2F742A787775001C44D9A9DC6D11B3703F585E44E6F524CA763CA0C53F`
 
             ### نصب
             فایل APK را دانلود و روی گوشی نصب کنید (اجازه نصب از منابع ناشناس را بدهید).
