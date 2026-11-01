@@ -1,6 +1,6 @@
 {
   "name": "froshyar",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000 2>&1 | tee dev.log",
@@ -14,7 +14,8 @@
     "icons": "node scripts/make-icons.mjs",
     "cap:sync": "next build && npx cap sync android",
     "apk": "next build && npx cap sync android && cd android && ./gradlew assembleRelease",
-    "aab": "next build && npx cap sync android && cd android && ./gradlew bundleRelease"
+    "aab": "next build && npx cap sync android && cd android && ./gradlew bundleRelease",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.3",
@@ -100,6 +101,7 @@
     "bun-types": "^1.3.4",
     "eslint": "^9",
     "eslint-config-next": "^16.1.1",
+    "patch-package": "^8.0.1",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5"
