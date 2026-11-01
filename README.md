@@ -57,8 +57,6 @@
 2. روی فایل بزنید؛ اگر اندروید پرسید، اجازه «نصب از منابع ناشناس» را بدهید.
 3. تمام! برنامه بدون هیچ ثبت‌نامی اجرا می‌شود.
 
-> فایل `Froshyar-x.x.x.aab` برای انتشار در **کافه‌بازار** و **مایکت** آماده شده است.
-
 ## 🌐 اجرای نسخه وب
 
 ```bash
@@ -68,28 +66,21 @@ npm run dev        # اجرا روی http://localhost:3000
 
 نسخه وب یک PWA کامل است و می‌توانید آن را از مرورگر روی صفحه اصلی گوشی نصب کنید.
 
-## 🔨 ساخت APK / AAB
+## 🔨 ساخت APK
 
 ### روش خودکار (پیشنهادی) — GitHub Actions
 
 با هر push به شاخه `main`، اکشن [ساخت APK فروش‌یار](.github/workflows/build-apk.yml) به‌صورت خودکار خروجی **امضاشده** را می‌سازد و در Releases منتشر می‌کند. جزئیات بیشتر: [BUILD-APK.md](./BUILD-APK.md)
 
-کلید امضا در خود مخزن قرار نمی‌گیرد؛ اکشن آن را از **Actions Secrets** می‌خواند:
-
-| سکرت | توضیح |
-|---|---|
-| `KEYSTORE_BASE64` | فایل keystore امضا، کدگذاری‌شده با Base64 |
-| `KEYSTORE_PASSWORD` | رمز keystore |
-| `KEY_ALIAS` | نام مستعار کلید |
-| `KEY_PASSWORD` | رمز کلید |
+کلید امضا در خود مخزن قرار ندارد و فقط از طریق سکرت‌های محیط ساخت رسمی استفاده می‌شود.
 
 ### روش دستی
 
 ```bash
 npm run build
 npx cap sync android
-cd android && ./gradlew assembleRelease bundleRelease
-# خروجی: android/app/build/outputs/{apk,bundle}/release/
+cd android && ./gradlew assembleRelease
+# خروجی: android/app/build/outputs/apk/release/
 ```
 
 ## 🔐 امضای برنامه
