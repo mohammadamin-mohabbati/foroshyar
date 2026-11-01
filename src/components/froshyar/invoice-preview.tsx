@@ -30,6 +30,7 @@ import {
 import { Capacitor } from "@capacitor/core";
 import {
   downloadInvoice,
+  PORTRAIT_PAPER_WIDTH,
   shareInvoice,
   type ExportFormat,
 } from "@/lib/exporter";
@@ -56,7 +57,7 @@ export function InvoicePreview({
   const orientation = useStore((s) => s.profile.exportOrientation) || "portrait";
   const isNative = Capacitor.isNativePlatform();
 
-  /* پیش‌نمایش عمودی = عیناً همان برگه خروجی (عرض واقعی A4 = 794px)
+  /* پیش‌نمایش عمودی = عیناً همان برگه خروجی (هم‌عرض کلون خروجی، ۶۴۰px)
      با مقیاس‌شدن به عرض صفحه — چیزی که می‌بینید دقیقاً همان چیزی است
      که در خروجی PNG/JPG/PDF چاپ می‌شود */
   const [fitScale, setFitScale] = useState(1);
@@ -69,7 +70,7 @@ export function InvoicePreview({
     if (!wrap) return;
     const measure = () => {
       const w = wrap.clientWidth;
-      if (w > 0) setFitScale(w / 794);
+      if (w > 0) setFitScale(w / PORTRAIT_PAPER_WIDTH);
       if (paper) setPaperH(paper.offsetHeight);
     };
     const ro = new ResizeObserver(measure);
@@ -176,7 +177,7 @@ export function InvoicePreview({
             >
               <div
                 style={{
-                  width: 794,
+                  width: PORTRAIT_PAPER_WIDTH,
                   transform: `scale(${fitScale})`,
                   transformOrigin: "top right",
                 }}

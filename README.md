@@ -8,7 +8,7 @@
 
 اپلیکیشن صدور فاکتور فارسی برای کسب‌وکارهای کوچک — بدون ثبت‌نام، بدون سرور، بدون اینترنت.
 
-[![Version](https://img.shields.io/badge/version-1.0.8-16a34a)](../../releases)
+[![Version](https://img.shields.io/badge/version-1.0.9-16a34a)](../../releases)
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20PWA-0d9488)](#-نصب-روی-اندروید)
 [![Offline](https://img.shields.io/badge/offline-100%25-16a34a)](#-حریم-خصوصی)
 [![Made in Iran](https://img.shields.io/badge/made%20in-Iran-f59e0b)](#)

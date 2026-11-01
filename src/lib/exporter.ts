@@ -19,12 +19,16 @@ import type { ExportOrientation } from "@/lib/store";
 
 export type ExportFormat = "png" | "jpg" | "pdf";
 
-/* عرض برگه خروجی (معادل A4 با ۹۶dpi)
-   کاغذ فاکتور هنگام خروجی با این عرض رندر می‌شود تا برگه‌های بزرگ‌تر
-   و حرفه‌ای‌تر ساخته شود و محتوای بیشتری در هر صفحه جا بگیرد
-   (فاکتور ۶ قلمی به‌جای ۲-۳ صفحه در یک صفحه A4 جا می‌شود) */
+/* عرض برگه خروجی
+   عمودی: ۶۴۰px — عمداً باریک‌تر از A4 واقعی (۷۹۴px)؛ چون اندازه‌ی متن‌ها
+   ثابت است، برگه‌ی باریک‌تر یعنی محتوا کل عرض برگه را پر می‌کند و فضای
+   خالی کمتری دور جدول و اطلاعات می‌ماند (در PDF هم‌عرض برگه‌ی A4 جا
+   می‌گیرد و متن درشت‌تر و پرتر دیده می‌شود).
+   افقی: معادل A4 افقی با ۹۶dpi */
+export const PORTRAIT_PAPER_WIDTH = 640;
+
 const EXPORT_WIDTH: Record<ExportOrientation, number> = {
-  portrait: 794,
+  portrait: PORTRAIT_PAPER_WIDTH,
   landscape: 1123,
 };
 
@@ -242,10 +246,10 @@ async function buildBlob(
   format: ExportFormat,
   orientation: ExportOrientation = "portrait"
 ): Promise<{ blob: Blob; fileName: string }> {
-  // کاغذ با عرض واقعی A4 (یا A4 افقی) رندر می‌شود — برگه بزرگ‌تر و صفحات کمتر
+  // کاغذ با عرض برگه‌ی خروجی (عمودی ۶۴۰ / افقی ۱۱۲۳) رندر می‌شود — عیناً همان پیش‌نمایش
   const { node, cleanup } = stageExportClone(
     el,
-    EXPORT_WIDTH[orientation] || 794,
+    EXPORT_WIDTH[orientation] || PORTRAIT_PAPER_WIDTH,
     orientation
   );
   try {

@@ -145,7 +145,7 @@ export const InvoicePaper = forwardRef<
                   <td className="px-1 py-2.5 text-center tabular-nums text-[#64748B]">
                     {toFa(idx + 1)}
                   </td>
-                  <td className="px-2 py-2.5 text-right">
+                  <td className="px-2 py-2.5 text-right [overflow-wrap:anywhere]">
                     <span className="font-bold">{it.name}</span>
                   </td>
                   <td className="px-1 py-2.5 text-center tabular-nums">
