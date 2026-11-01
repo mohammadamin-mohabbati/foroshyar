@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">فروش‌یار</string>
+    <string name="title_activity_main">فروش‌یار</string>
+    <string name="package_name">ir.mohabbati.froshyar</string>
+    <string name="custom_url_scheme">ir.mohabbati.froshyar</string>
+</resources>

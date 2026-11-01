@@ -1,0 +1,107 @@
+name: ساخت APK فروش‌یار
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: دریافت کد
+        uses: actions/checkout@v4
+
+      - name: نصب Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: نصب وابستگی‌ها
+        run: npm install
+
+      - name: ساخت نسخه استاتیک وب
+        run: npm run build
+
+      - name: همگام‌سازی Capacitor اندروید
+        run: npx cap sync android
+
+      - name: نصب Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: تعیین شماره نسخه
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+          CODE=$((MAJOR * 10000 + MINOR * 100 + PATCH))
+          sed -i "s/versionCode .*/versionCode $CODE/" android/app/build.gradle
+          sed -i "s/versionName .*/versionName \"$VERSION\"/" android/app/build.gradle
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "VERSION_CODE=$CODE" >> "$GITHUB_ENV"
+          echo "نسخه: $VERSION (کد: $CODE)"
+
+      - name: بازگردانی کلید امضا از Secrets
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "❌ سکرت KEYSTORE_BASE64 تنظیم نشده است — بیلد بدون امضای release متوقف می‌شود."
+            exit 1
+          fi
+          mkdir -p android/keystore
+          echo "$KEYSTORE_BASE64" | base64 -d > android/keystore/froshyar-release.jks
+          cat > android/key.properties <<EOF
+          storeFile=keystore/froshyar-release.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+          echo "✅ کلید امضا بازگردانی شد ($(wc -c < android/keystore/froshyar-release.jks) بایت)"
+
+      - name: ساخت APK و AAB امضاشده
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease bundleRelease --no-daemon
+
+      - name: آماده‌سازی فایل‌های خروجی
+        run: |
+          mkdir -p apk-out
+          cp android/app/build/outputs/apk/release/app-release.apk "apk-out/Froshyar-${VERSION}.apk"
+          cp android/app/build/outputs/bundle/release/app-release.aab "apk-out/Froshyar-${VERSION}.aab" || true
+          ls -la apk-out
+
+      - name: انتشار در GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: فروش‌یار v${{ env.VERSION }}
+          body: |
+            ## فروش‌یار v${{ env.VERSION }}
+
+            - فایل **Froshyar-${{ env.VERSION }}.apk** — نصب مستقیم روی گوشی اندروید
+            - فایل **Froshyar-${{ env.VERSION }}.aab** — برای انتشار در کافه‌بازار و مایکت
+            - امضاشده با کلید رسمی برنامه
+              `SHA-256: FFE55B2F742A787775001C44D9A9DC6D11B3703F585E44E6F524CA763CA0C53F`
+
+            ### نصب
+            فایل APK را دانلود و روی گوشی نصب کنید (اجازه نصب از منابع ناشناس را بدهید).
+          files: apk-out/*
+          overwrite_files: true
+
+      - name: آپلود آرتیفکت (نگهداری خروجی در Actions)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Froshyar-${{ env.VERSION }}
+          path: apk-out/*
+          retention-days: 90
