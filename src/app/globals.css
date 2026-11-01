@@ -1,0 +1,506 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ---------------- Vazirmatn (باندل‌شده آفلاین) ---------------- */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Vazirmatn", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-deep: var(--deep);
+  --color-brand: var(--brand);
+  --color-tint: var(--tint);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ================= تم پیش‌فرض: سبز (لایت) ================= */
+:root,
+:root[data-theme="green"] {
+  --radius: 1rem;
+  --background: #f5f7f6;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #0f8a6b;
+  --primary-foreground: #ffffff;
+  --secondary: #e6f4ef;
+  --secondary-foreground: #0b5d50;
+  --muted: #eef2f1;
+  --muted-foreground: #64748b;
+  --accent: #e6f4ef;
+  --accent-foreground: #0b5d50;
+  --destructive: #dc2626;
+  --border: #e3eae7;
+  --input: #d7e2de;
+  --ring: #0f8a6b;
+  --brand: #0f8a6b;
+  --deep: #0b5d50;
+  --tint: #e6f4ef;
+  --chart-1: #0f8a6b;
+  --chart-2: #5ec9a3;
+  --chart-3: #0b5d50;
+  --chart-4: #f0b429;
+  --chart-5: #64748b;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #0f8a6b;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e6f4ef;
+  --sidebar-accent-foreground: #0b5d50;
+  --sidebar-border: #e3eae7;
+  --sidebar-ring: #0f8a6b;
+}
+
+.dark,
+.dark[data-theme="green"] {
+  --background: #0a1310;
+  --foreground: #e8f0ed;
+  --card: #101d19;
+  --card-foreground: #e8f0ed;
+  --popover: #13211c;
+  --popover-foreground: #e8f0ed;
+  --primary: #14a385;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(20, 163, 133, 0.14);
+  --secondary-foreground: #7dd3b9;
+  --muted: #16261f;
+  --muted-foreground: #8ca39a;
+  --accent: rgba(20, 163, 133, 0.14);
+  --accent-foreground: #7dd3b9;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.09);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #14a385;
+  --brand: #14a385;
+  --deep: #0b5d50;
+  --tint: rgba(20, 163, 133, 0.14);
+  --sidebar: #101d19;
+  --sidebar-foreground: #e8f0ed;
+  --sidebar-primary: #14a385;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #16261f;
+  --sidebar-accent-foreground: #7dd3b9;
+  --sidebar-border: rgba(255, 255, 255, 0.09);
+  --sidebar-ring: #14a385;
+}
+
+/* ================= تم بنفش ================= */
+[data-theme="purple"] {
+  --background: #faf9fc;
+  --foreground: #1e1b2e;
+  --card: #ffffff;
+  --card-foreground: #1e1b2e;
+  --popover: #ffffff;
+  --popover-foreground: #1e1b2e;
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --secondary: #f1e9fe;
+  --secondary-foreground: #5b21b6;
+  --muted: #f2effa;
+  --muted-foreground: #6b6580;
+  --accent: #f1e9fe;
+  --accent-foreground: #5b21b6;
+  --destructive: #dc2626;
+  --border: #e8e3f2;
+  --input: #ddd5ee;
+  --ring: #7c3aed;
+  --brand: #7c3aed;
+  --deep: #5b21b6;
+  --tint: #f1e9fe;
+}
+.dark[data-theme="purple"] {
+  --background: #120e1e;
+  --foreground: #ece8f7;
+  --card: #1a1430;
+  --card-foreground: #ece8f7;
+  --popover: #211a3a;
+  --popover-foreground: #ece8f7;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(139, 92, 246, 0.16);
+  --secondary-foreground: #c4b5fd;
+  --muted: #1e1738;
+  --muted-foreground: #9d94b8;
+  --accent: rgba(139, 92, 246, 0.16);
+  --accent-foreground: #c4b5fd;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.09);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #8b5cf6;
+  --brand: #8b5cf6;
+  --deep: #5b21b6;
+  --tint: rgba(139, 92, 246, 0.16);
+}
+
+/* ================= تم سرخابی ================= */
+[data-theme="pink"] {
+  --background: #fbf7f8;
+  --foreground: #2a1520;
+  --card: #ffffff;
+  --card-foreground: #2a1520;
+  --popover: #ffffff;
+  --popover-foreground: #2a1520;
+  --primary: #db2777;
+  --primary-foreground: #ffffff;
+  --secondary: #fce7f1;
+  --secondary-foreground: #9d174d;
+  --muted: #f8eef2;
+  --muted-foreground: #8a6472;
+  --accent: #fce7f1;
+  --accent-foreground: #9d174d;
+  --destructive: #dc2626;
+  --border: #f0e2e8;
+  --input: #e9d5de;
+  --ring: #db2777;
+  --brand: #db2777;
+  --deep: #9d174d;
+  --tint: #fce7f1;
+}
+.dark[data-theme="pink"] {
+  --background: #1a0d14;
+  --foreground: #f7e9ee;
+  --card: #271420;
+  --card-foreground: #f7e9ee;
+  --popover: #2f1925;
+  --popover-foreground: #f7e9ee;
+  --primary: #ec4899;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(236, 72, 153, 0.15);
+  --secondary-foreground: #f9a8d4;
+  --muted: #2c1723;
+  --muted-foreground: #b08a99;
+  --accent: rgba(236, 72, 153, 0.15);
+  --accent-foreground: #f9a8d4;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.09);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #ec4899;
+  --brand: #ec4899;
+  --deep: #9d174d;
+  --tint: rgba(236, 72, 153, 0.15);
+}
+
+/* ================= تم نارنجی ================= */
+[data-theme="orange"] {
+  --background: #fbf8f5;
+  --foreground: #291a10;
+  --card: #ffffff;
+  --card-foreground: #291a10;
+  --popover: #ffffff;
+  --popover-foreground: #291a10;
+  --primary: #ea580c;
+  --primary-foreground: #ffffff;
+  --secondary: #fdeadd;
+  --secondary-foreground: #9a3412;
+  --muted: #f7efe8;
+  --muted-foreground: #8b7263;
+  --accent: #fdeadd;
+  --accent-foreground: #9a3412;
+  --destructive: #dc2626;
+  --border: #f0e5db;
+  --input: #ecd9c9;
+  --ring: #ea580c;
+  --brand: #ea580c;
+  --deep: #9a3412;
+  --tint: #fdeadd;
+}
+.dark[data-theme="orange"] {
+  --background: #180f09;
+  --foreground: #f5ece4;
+  --card: #241811;
+  --card-foreground: #f5ece4;
+  --popover: #2c1e15;
+  --popover-foreground: #f5ece4;
+  --primary: #f97316;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(249, 115, 22, 0.15);
+  --secondary-foreground: #fdba74;
+  --muted: #291c13;
+  --muted-foreground: #b39a88;
+  --accent: rgba(249, 115, 22, 0.15);
+  --accent-foreground: #fdba74;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.09);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #f97316;
+  --brand: #f97316;
+  --deep: #9a3412;
+  --tint: rgba(249, 115, 22, 0.15);
+}
+
+/* ================= تم فیروزه‌ای ================= */
+[data-theme="turquoise"] {
+  --background: #f4f9f9;
+  --foreground: #102a2a;
+  --card: #ffffff;
+  --card-foreground: #102a2a;
+  --popover: #ffffff;
+  --popover-foreground: #102a2a;
+  --primary: #0d9488;
+  --primary-foreground: #ffffff;
+  --secondary: #dcf3f0;
+  --secondary-foreground: #115e59;
+  --muted: #ebf4f3;
+  --muted-foreground: #5e7c79;
+  --accent: #dcf3f0;
+  --accent-foreground: #115e59;
+  --destructive: #dc2626;
+  --border: #e0eceb;
+  --input: #d2e5e3;
+  --ring: #0d9488;
+  --brand: #0d9488;
+  --deep: #115e59;
+  --tint: #dcf3f0;
+}
+.dark[data-theme="turquoise"] {
+  --background: #0a1413;
+  --foreground: #e2efee;
+  --card: #102020;
+  --card-foreground: #e2efee;
+  --popover: #142827;
+  --popover-foreground: #e2efee;
+  --primary: #14b8a6;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(20, 184, 166, 0.14);
+  --secondary-foreground: #5eead4;
+  --muted: #152626;
+  --muted-foreground: #87a5a2;
+  --accent: rgba(20, 184, 166, 0.14);
+  --accent-foreground: #5eead4;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.09);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #14b8a6;
+  --brand: #14b8a6;
+  --deep: #115e59;
+  --tint: rgba(20, 184, 166, 0.14);
+}
+
+/* ================= تم طلایی ================= */
+[data-theme="gold"] {
+  --background: #fbf9f4;
+  --foreground: #2a2110;
+  --card: #ffffff;
+  --card-foreground: #2a2110;
+  --popover: #ffffff;
+  --popover-foreground: #2a2110;
+  --primary: #b45309;
+  --primary-foreground: #ffffff;
+  --secondary: #faeeda;
+  --secondary-foreground: #92400e;
+  --muted: #f6f0e4;
+  --muted-foreground: #857657;
+  --accent: #faeeda;
+  --accent-foreground: #92400e;
+  --destructive: #dc2626;
+  --border: #eee7d8;
+  --input: #e8dcc4;
+  --ring: #b45309;
+  --brand: #b45309;
+  --deep: #92400e;
+  --tint: #faeeda;
+}
+.dark[data-theme="gold"] {
+  --background: #15100a;
+  --foreground: #f2ecdf;
+  --card: #221a0f;
+  --card-foreground: #f2ecdf;
+  --popover: #2a2013;
+  --popover-foreground: #f2ecdf;
+  --primary: #d97706;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(217, 119, 6, 0.15);
+  --secondary-foreground: #fcd34d;
+  --muted: #26200f;
+  --muted-foreground: #ab9c7f;
+  --accent: rgba(217, 119, 6, 0.15);
+  --accent-foreground: #fcd34d;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.09);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #d97706;
+  --brand: #d97706;
+  --deep: #92400e;
+  --tint: rgba(217, 119, 6, 0.15);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Vazirmatn", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    overscroll-behavior-y: none;
+  }
+  input,
+  textarea,
+  select,
+  button {
+    font-family: inherit;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::selection {
+    background: var(--tint);
+    color: var(--deep);
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scroll-thin::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+  }
+  .scroll-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .bottom-safe {
+    bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+/* انیمیشن‌ها */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes ping-badge {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  75%,
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+.animate-float-slow {
+  animation: float-slow 3.5s ease-in-out infinite;
+}
+.animate-ping-badge {
+  animation: ping-badge 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* چاپ فاکتور: فقط کاغذ فاکتور */
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+  body * {
+    visibility: hidden !important;
+  }
+  #invoice-paper,
+  #invoice-paper * {
+    visibility: visible !important;
+  }
+  #invoice-paper {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
